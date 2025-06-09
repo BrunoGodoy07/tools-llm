@@ -6,14 +6,16 @@ const DATA_FILE = './data/alumnos.json';
 class Estudiantes {
   constructor() {
     this.estudiantes = [];
+    this.cargarEstudiantesDesdeJson();
   }
   
   cargarEstudiantesDesdeJson() {
     try {
-        const data = JSON.parse(readFileSync(DATA_FILE, 'utf-8'));
-        this.estudiantes = data.alumnos || [];
+      const data = JSON.parse(readFileSync(DATA_FILE, 'utf-8'));
+      this.estudiantes = data.alumnos || [];
     } catch (e) {
-        console.error("Error al leer el archivo de datos:", e);
+      console.error("Error al leer el archivo de datos:", e);
+      this.estudiantes = [];
     }
   }
 
@@ -27,24 +29,27 @@ class Estudiantes {
     }
   }
 
-  // TODO: Implementar método para agregar estudiante
   agregarEstudiante(nombre, apellido, curso) {
-    // Tu código aquí
+    // Validación simple
+    if (!nombre || !apellido || !curso) {
+      throw new Error("Faltan datos para agregar el estudiante.");
+    }
+    const nuevo = { nombre, apellido, curso };
+    this.estudiantes.push(nuevo);
+    this.guardarEstudiantes();
+    return nuevo;
   }
 
-  // TODO: Implementar método para buscar estudiante por nombre
   buscarEstudiantePorNombre(nombre) {
-    // Tu código aquí
+    return this.estudiantes.filter(e => e.nombre.toLowerCase() === nombre.toLowerCase());
   }
 
-  // TODO: Implementar método para buscar estudiante por apellido
   buscarEstudiantePorApellido(apellido) {
-    // Tu código aquí
+    return this.estudiantes.filter(e => e.apellido.toLowerCase() === apellido.toLowerCase());
   }
 
-  // TODO: Implementar método para listar estudiantes
   listarEstudiantes() {
-    // Tu código aquí
+    return this.estudiantes;
   }
 }
 
