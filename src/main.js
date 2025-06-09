@@ -5,7 +5,7 @@ import { empezarChat } from "./lib/cli-chat.js";
 import { Estudiantes } from "./lib/estudiantes.js";
 
 // Configuración
-const DEBUG = true;
+const DEBUG = false;
 
 // Instancia de la clase Estudiantes
 const estudiantes = new Estudiantes();
